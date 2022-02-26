@@ -23,7 +23,7 @@ app.use('/api/tasks', TasksRouter);
 app.use(notFound);
 
 // Start the server
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 const start = async () => {
     try {
         await mongoose.connect(process.env.DB_URI)
