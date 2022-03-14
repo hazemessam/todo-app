@@ -24,12 +24,11 @@ app.use(notFound);
 
 // Start the server
 const port = process.env.PORT || 8080;
-const start = async () => {
-    try {
-        await mongoose.connect(process.env.DB_URI)
-            .then(() => console.log(`connected to db ${mongoose.connection.db.databaseName}...`));
-        app.listen(port, () => console.log(`server is listening on port ${port}...`));
-    } catch(err) { console.log(err); }
+const start = () => {
+    mongoose.connect(process.env.DB_URI)
+        .then(() => console.log(`connected to db ${mongoose.connection.db.databaseName}...`))
+        .then(() => app.listen(port, () => console.log(`server is listening on port ${port}...`)))
+        .catch(err => console.log(err));
 }
 
 start()
