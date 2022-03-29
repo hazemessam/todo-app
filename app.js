@@ -2,12 +2,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+const dotenv = require('dotenv');
 
 // Application modules
-const {logRequest, notFound} = require('./middlewares');
+const logRequest = require('./middlewares/logger');
+const { errorHandler, notFoundHandler } = require('./errors');
 const TasksRouter = require('./routers/tasks');
 
+
+dotenv.config();
 const app = express();
 
 // Middlewares
@@ -19,8 +22,9 @@ app.use(express.json());
 // Routes
 app.use('/api/tasks', TasksRouter);
 
-// Handle the undefined routes
-app.use(notFound);
+// Error handlers
+app.use(notFoundHandler);
+app.use(errorHandler)
 
 // Start the server
 const port = process.env.PORT || 8080;
