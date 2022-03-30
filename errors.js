@@ -6,7 +6,7 @@ class CustomError extends Error {
 }
 
 
-const AsyncWrapper = controller => async (req, res, next) => {
+const asyncWrapper = controller => async (req, res, next) => {
     try {
         await controller(req, res, next);
     } catch (err) {
@@ -28,7 +28,7 @@ const notFoundHandler = (req, res) => res.status(404).json({error: "Not found"})
 
 module.exports = {
     CustomError,
-    AsyncWrapper,
+    asyncWrapper,
     errorHandler,
     notFoundHandler
 }
